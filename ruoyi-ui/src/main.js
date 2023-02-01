@@ -80,7 +80,7 @@ Vue.config.productionTip = false
 
 new Vue({
   el: '#app',
-  router,
-  store,
+  router, //路由插件
+  store, //vuex插件,所有的组件中都可以使用store中的action,mutation和state数据。通过$strore调用或者mapXXX函数映射
   render: h => h(App)
 })
