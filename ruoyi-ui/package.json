@@ -1,8 +1,8 @@
 {
-  "name": "ruoyi",
+  "name": "VDP",
   "version": "3.6.2",
-  "description": "若依管理系统",
-  "author": "若依",
+  "description": "志愿者调度平台",
+  "author": "黄新建",
   "license": "MIT",
   "scripts": {
     "dev": "vue-cli-service serve",
@@ -36,6 +36,7 @@
     "url": "https://gitee.com/y_project/RuoYi-Cloud.git"
   },
   "dependencies": {
+    "@amap/amap-jsapi-loader": "^1.0.1",
     "@riophae/vue-treeselect": "0.4.0",
     "axios": "0.24.0",
     "clipboard": "2.0.8",
@@ -53,6 +54,7 @@
     "screenfull": "5.0.2",
     "sortablejs": "1.10.2",
     "vue": "2.6.12",
+    "vue-amap": "^0.5.10",
     "vue-count-to": "1.0.13",
     "vue-cropper": "0.5.5",
     "vue-meta": "2.4.0",

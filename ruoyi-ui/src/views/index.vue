@@ -1,11 +1,17 @@
 <template>
-      <div style="font-size: xx-large;">志愿者调度平台首页</div>
-    
+    <div>
+      <!-- <h1>志愿者调度平台首页</h1> -->
+      <MapContainer />
+    </div>
+      
 </template>
 
 <script>
+//导入高德地图组件
+import MapContainer from './tool/map/MapContainer.vue'
 export default {
   name: "Index",
+  components:{MapContainer},
   data() {
     return {
       // 版本号
@@ -21,6 +27,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
+
 .home {
   blockquote {
     padding: 10px 20px;

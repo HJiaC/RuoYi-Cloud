@@ -1,6 +1,7 @@
 <template>
   <div class="login">
     <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form">
+      <!-- <img src="src/assets/images/logo.png" alt="" style="width: 30px;height: 30px;"> -->
       <h3 class="title">志愿者调度平台</h3>
       <el-form-item prop="username">
         <el-input
