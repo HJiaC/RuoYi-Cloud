@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import GoEasy from 'goeasy'
 
 import Cookies from 'js-cookie'
 
@@ -81,9 +82,29 @@ Vue.use(Element, {
 
 Vue.config.productionTip = false
 
+Vue.prototype.globalData = {
+  currentUser: {
+    id: '08c0a6ec-a42b-47b2-bb1e-15e0f5f9a19a',
+    name: 'Mattie',
+    password: '123',
+    avatar: '/static/imagesAvatar-1.png',
+    email: 'Mattie@goeasy.io',
+    phone: '138xxxxxxxx',
+  }
+};
+
 new Vue({
   el: '#app',
   router, //路由插件
   store, //vuex插件,所有的组件中都可以使用store中的action,mutation和state数据。通过$strore调用或者mapXXX函数映射
   render: h => h(App)
 })
+
+const goEasy = GoEasy.getInstance({
+  host: 'hangzhou.goeasy.io', //应用所在的区域地址: [hangzhou.goeasy.io, 新加坡暂不支持IM，敬请期待]
+  appkey: 'BC-xxxx', // common key,
+  modules: ['im'],
+});
+
+Vue.prototype.GoEasy = GoEasy;
+Vue.prototype.goEasy = goEasy;
