@@ -54,6 +54,11 @@
                 <dict-tag :options="dict.type.sys_notice_type" :value="scope.row.noticeType"/>
               </template>
             </el-table-column>
+            <el-table-column label="异常人员" align="center" prop="noticeType" width="100">
+              <template slot-scope="scope">
+                <dict-tag :options="dict.type.sys_notice_type" :value="scope.row.noticeType"/>
+              </template>
+            </el-table-column>
             <el-table-column label="备注" align="center" prop="status" width="100">
               <template slot-scope="scope">
                 <dict-tag :options="dict.type.sys_notice_status" :value="scope.row.status"/>

@@ -87,6 +87,29 @@ export const constantRoutes = [
         meta: { title: '个人中心', icon: 'user' }
       }
     ]
+  },
+  {
+    path: '/system/contact',
+    component: Layout,
+    hidden: true,
+    redirect: 'noredirect',
+    children: [
+      {
+        path: '',
+        component: () => import('@/views/system/contact/index'),
+        name: 'Contact',
+        meta: { title: '个人中心', icon: 'user' },
+        children:[
+        {
+            path:'/contacts',
+            component: () => import('@/views/system/contact/function/Contacts'),
+        },{
+            path:'/conversations',
+            component: () => import('@/views/system/contact/function/Conversations'),
+        }
+        ]
+      }
+    ]
   }
 ]
 

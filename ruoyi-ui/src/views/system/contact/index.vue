@@ -31,13 +31,14 @@
                 <i class="iconfont icon-haoyou"></i>
               </router-link>
             </div>
-            <div class="exit">
+            <!-- 侧栏退出按钮 -->
+            <!-- <div class="exit">
               <i class="iconfont icon-h" @click="logout"></i>
-            </div>
+            </div> -->
           </div>
         </div>
         <div class="home-main">
-          <!-- <router-view/> -->
+          <router-view/>
         </div>
       </div>
     </div>
@@ -45,6 +46,7 @@
   
   <script>
     export default {
+      name: 'ContactHome',
       data() {
         return {
           currentUser: null,

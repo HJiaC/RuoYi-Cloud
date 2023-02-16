@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import GoEasy from 'goeasy'
+import './assets/iconfont/iconfont.css';
 
 import Cookies from 'js-cookie'
 
@@ -87,7 +88,7 @@ Vue.prototype.globalData = {
     id: '08c0a6ec-a42b-47b2-bb1e-15e0f5f9a19a',
     name: 'Mattie',
     password: '123',
-    avatar: '/static/imagesAvatar-1.png',
+    avatar: '/static/images/Avatar-1.png',
     email: 'Mattie@goeasy.io',
     phone: '138xxxxxxxx',
   }
