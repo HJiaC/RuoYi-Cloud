@@ -1,92 +1,63 @@
 package com.ruoyi.system.domain;
 
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
-import com.ruoyi.common.core.annotation.Excel;
 import com.ruoyi.common.core.web.domain.BaseEntity;
 
-/**
- * @filename: SysTaskRecord
- * @author: HXJ
- * @date: 2023/2/16 4:04 PM
- * @version: V1.0
- * @description: 任务记录对象 sys_task_record
- */
-public class SysTaskRecord extends BaseEntity
-{
-    private static final long serialVersionUID = 1L;
+public class SysTaskRecord extends BaseEntity {
+    private int recordId;
+    private int taskId;
+    private int status;
+    private String member;
 
-    /** 记录ID
-     */
-    private Long recordId;
+    private String remark;
 
-    /** 任务ID */
-    @Excel(name = "任务ID")
-    private Long taskId;
+    public int getRecordId() {
+        return recordId;
+    }
 
-    /** 记录的情况
-     0：任务尚未开始
-     1：任务被终止
-     2：任务已完成
-     3：任务进行中
-     4：任务存在异常 */
-    @Excel(name = "记录的情况
-            0：任务尚未开始
-            1：任务被终止
-            2：任务已完成
-            3：任务进行中
-            4：任务存在异常")
-            private Long status;
-
-            /** 参与人员 */
-            @Excel(name = "参与人员")
-            private String member;
-
-            public void setRecordId(Long recordId)
-    {
+    public void setRecordId(int recordId) {
         this.recordId = recordId;
     }
 
-    public Long getRecordId()
-    {
-        return recordId;
+    public int getTaskId() {
+        return taskId;
     }
-    public void setTaskId(Long taskId)
-    {
+
+    public void setTaskId(int taskId) {
         this.taskId = taskId;
     }
 
-    public Long getTaskId()
-    {
-        return taskId;
+    public int getStatus() {
+        return status;
     }
-    public void setStatus(Long status)
-    {
+
+    public void setStatus(int status) {
         this.status = status;
     }
 
-    public Long getStatus()
-    {
-        return status;
+    public String getMember() {
+        return member;
     }
-    public void setMember(String member)
-    {
+
+    public void setMember(String member) {
         this.member = member;
     }
 
-    public String getMember()
-    {
-        return member;
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
     }
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
-                .append("recordId", getRecordId())
-                .append("taskId", getTaskId())
-                .append("status", getStatus())
-                .append("member", getMember())
-                .append("remark", getRemark())
-                .toString();
+        return "SysTaskRecord{" +
+                "recordId=" + recordId +
+                ", taskId=" + taskId +
+                ", status=" + status +
+                ", member='" + member + '\'' +
+                ", remark='" + remark + '\'' +
+                '}';
     }
 }

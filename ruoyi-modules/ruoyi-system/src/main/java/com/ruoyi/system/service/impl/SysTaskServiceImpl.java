@@ -21,6 +21,26 @@ public class SysTaskServiceImpl implements ISysTaskService
     @Autowired
     private SysTaskMapper sysTaskMapper;
 
+
+    /**
+     * 改变任务状态
+     * @param taskId
+     * @return int
+     */
+    @Override
+    public int changeTaskStatus(Long[] taskIds,Integer status) {
+        return sysTaskMapper.changeTaskStatus(taskIds,status);
+    }
+    /**
+     * 批量改变任务状态
+     * @param taskIds
+     * @return int
+     */
+    @Override
+    public int changeTaskStatusByIds(Long[] taskIds, Integer status) {
+        return sysTaskMapper.changeTaskStatusByIds(taskIds,status);
+    }
+
     /**
      * 查询Web端任务中心任务
      *

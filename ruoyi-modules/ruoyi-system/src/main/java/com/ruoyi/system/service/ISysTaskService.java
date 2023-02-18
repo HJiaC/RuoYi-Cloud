@@ -12,6 +12,21 @@ import java.util.List;
  * @description: Web端任务中心任务Service接口
  */
 public interface ISysTaskService {
+
+
+    /**
+     * 改变任务状态
+     * @param taskId
+     * @return int
+     */
+    public int changeTaskStatus(Long[] taskIds,Integer status);
+
+    /**
+     * 批量改变任务状态
+     * @param taskIds
+     * @return int
+     */
+    public int changeTaskStatusByIds(Long[] taskIds,Integer status);
     /**
      * 查询Web端任务中心任务
      *

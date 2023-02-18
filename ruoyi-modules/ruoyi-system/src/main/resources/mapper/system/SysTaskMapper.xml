@@ -65,6 +65,28 @@
         where task_id = #{taskId}
     </update>
 
+    <update id="changeTaskStatus" >
+        update sys_task
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="status != null">status = #{status}</if>
+        </trim>
+        where task_id in
+        <foreach item="taskId" collection="taskIds" open="(" separator="," close=")">
+            #{taskId}
+        </foreach>
+    </update>
+    <update id="changeTaskStatusByIds">
+        update sys_task
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="status != null">status = #{status}</if>
+        </trim>
+        where task_id in
+        <foreach item="taskId" collection="array" open="(" separator="," close=")">
+            #{taskId}
+        </foreach>
+    </update>
+
+
     <delete id="deleteSysTaskByTaskId" parameterType="Long">
         delete from sys_task where task_id = #{taskId}
     </delete>

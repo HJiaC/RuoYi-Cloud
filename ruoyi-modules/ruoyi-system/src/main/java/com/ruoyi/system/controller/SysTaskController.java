@@ -36,6 +36,25 @@ public class SysTaskController extends BaseController
     @Autowired
     private ISysTaskService sysTaskService;
 
+
+    /**
+     * @param taskId
+     * @param status
+     */
+    @PostMapping("/change/{taskIds}/{status}")
+    public AjaxResult changeTaskStatus(@PathVariable("taskIds") Long[] taskIds,@PathVariable("status")Integer status){
+        return success(sysTaskService.changeTaskStatus(taskIds,status));
+    }
+
+//    /**
+//     * @param taskIds
+//     * @param status
+//     */
+//    @PostMapping("/change/{taskIds}/{status}")
+//    public AjaxResult changeTaskStatus(@PathVariable("taskIds") Long[] taskIds,@PathVariable("status")Integer status){
+//        return success(sysTaskService.changeTaskStatusByIds(taskIds,status));
+//    }
+
     /**
      * 查询Web端任务中心任务列表
      */

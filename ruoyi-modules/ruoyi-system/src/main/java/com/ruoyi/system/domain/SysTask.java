@@ -23,6 +23,9 @@ public class SysTask extends BaseEntity
     @Excel(name = "任务名称")
     private String taskName;
 
+    @Excel(name = "创建人员")
+    private String createBy;
+
     /** 所属组织 */
     @Excel(name = "所属组织")
     private String organization;
@@ -69,15 +72,23 @@ public class SysTask extends BaseEntity
     }
 
     @Override
+    public String getCreateBy() {
+        return createBy;
+    }
+
+    @Override
+    public void setCreateBy(String createBy) {
+        this.createBy = createBy;
+    }
+
+    @Override
     public String toString() {
-        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
-                .append("taskId", getTaskId())
-                .append("taskName", getTaskName())
-                .append("createBy", getCreateBy())
-                .append("organization", getOrganization())
-                .append("status", getStatus())
-                .append("createTime", getCreateTime())
-                .append("updateTime", getUpdateTime())
-                .toString();
+        return "SysTask{" +
+                "taskId=" + taskId +
+                ", taskName='" + taskName + '\'' +
+                ", createBy='" + createBy + '\'' +
+                ", organization='" + organization + '\'' +
+                ", status=" + status +
+                '}';
     }
 }

@@ -30,7 +30,7 @@ import com.ruoyi.common.core.web.page.TableDataInfo;
  * @description: 人员调度记录Controller
  */
 @RestController
-@RequestMapping("/record")
+@RequestMapping("/scheduleRecord")
 public class SysScheduleRecordController extends BaseController
 {
     @Autowired

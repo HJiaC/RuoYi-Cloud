@@ -30,7 +30,7 @@ import com.ruoyi.common.core.web.page.TableDataInfo;
  * @description: 任务记录Controller
  */
 @RestController
-@RequestMapping("/record")
+@RequestMapping("/taskRecord")
 public class SysTaskRecordController extends BaseController
 {
     @Autowired

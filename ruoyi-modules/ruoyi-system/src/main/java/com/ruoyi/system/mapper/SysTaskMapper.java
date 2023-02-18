@@ -2,6 +2,7 @@ package com.ruoyi.system.mapper;
 
 import java.util.List;
 import com.ruoyi.system.domain.SysTask;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * @filename: SysTaskMapper
@@ -59,4 +60,8 @@ public interface SysTaskMapper
      * @return 结果
      */
     public int deleteSysTaskByTaskIds(Long[] taskIds);
+
+    public int changeTaskStatus(@Param("taskIds") Long[] taskIds,@Param("status") Integer status);
+
+    public int changeTaskStatusByIds(@Param("taskIds") Long[] taskIds,@Param("status")Integer status);
 }
