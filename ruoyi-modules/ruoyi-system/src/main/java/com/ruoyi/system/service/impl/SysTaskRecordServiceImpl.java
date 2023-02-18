@@ -1,6 +1,8 @@
 package com.ruoyi.system.service.impl;
 
 import java.util.List;
+
+import com.ruoyi.system.domain.dto.SysTaskRecordOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ruoyi.system.mapper.SysTaskRecordMapper;
@@ -59,13 +61,13 @@ public class SysTaskRecordServiceImpl implements ISysTaskRecordService
     /**
      * 修改任务记录
      *
-     * @param sysTaskRecord 任务记录
+     * @param sysTaskRecordOperation 任务记录
      * @return 结果
      */
     @Override
-    public int updateSysTaskRecord(SysTaskRecord sysTaskRecord)
+    public int updateSysTaskRecord(SysTaskRecordOperation sysTaskRecordOperation)
     {
-        return sysTaskRecordMapper.updateSysTaskRecord(sysTaskRecord);
+        return sysTaskRecordMapper.updateSysTaskRecord(sysTaskRecordOperation);
     }
 
     /**

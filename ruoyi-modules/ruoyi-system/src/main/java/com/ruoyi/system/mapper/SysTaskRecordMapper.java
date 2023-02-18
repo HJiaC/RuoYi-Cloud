@@ -2,6 +2,8 @@ package com.ruoyi.system.mapper;
 
 import java.util.List;
 import com.ruoyi.system.domain.SysTaskRecord;
+import com.ruoyi.system.domain.dto.SysTaskRecordOperation;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * @filename: SysTaskRecordMapper
@@ -39,10 +41,10 @@ public interface SysTaskRecordMapper
     /**
      * 修改任务记录
      *
-     * @param sysTaskRecord 任务记录
+     * @param sysTaskRecordOperation 任务记录操作
      * @return 结果
      */
-    public int updateSysTaskRecord(SysTaskRecord sysTaskRecord);
+    public int updateSysTaskRecord(SysTaskRecordOperation sysTaskRecordOperation);
 
     /**
      * 删除任务记录

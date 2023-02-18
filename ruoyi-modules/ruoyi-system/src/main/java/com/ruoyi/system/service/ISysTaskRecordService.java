@@ -2,6 +2,7 @@ package com.ruoyi.system.service;
 
 import java.util.List;
 import com.ruoyi.system.domain.SysTaskRecord;
+import com.ruoyi.system.domain.dto.SysTaskRecordOperation;
 
 /**
  * @filename: ISysTaskRecordService
@@ -39,10 +40,10 @@ public interface ISysTaskRecordService
     /**
      * 修改任务记录
      *
-     * @param sysTaskRecord 任务记录
+     * @param sysTaskRecordOperation 任务记录
      * @return 结果
      */
-    public int updateSysTaskRecord(SysTaskRecord sysTaskRecord);
+    public int updateSysTaskRecord(SysTaskRecordOperation sysTaskRecordOperation);
 
     /**
      * 批量删除任务记录

@@ -19,8 +19,9 @@
     <select id="selectSysTaskRecordList" parameterType="SysTaskRecord" resultMap="SysTaskRecordResult">
         <include refid="selectSysTaskRecordVo"/>
         <where>
-            <if test="taskId != null "> and task_id = #{taskId}</if>
-            <if test="status != null "> and status = #{status}</if>
+            <if test="taskId != null and taskId != 0 "> and task_id = #{taskId}</if>
+            <if test="recordId != null and recordId != 0 "> and task_id = #{taskId}</if>
+            <if test="status != null and status != 0 "> and status = #{status}</if>
             <if test="member != null  and member != ''"> and member = #{member}</if>
         </where>
     </select>
@@ -46,12 +47,10 @@
         </trim>
     </insert>
 
-    <update id="updateSysTaskRecord" parameterType="SysTaskRecord">
+    <update id="updateSysTaskRecord" parameterType="SysTaskRecordOperation">
         update sys_task_record
         <trim prefix="SET" suffixOverrides=",">
-            <if test="taskId != null">task_id = #{taskId},</if>
-            <if test="status != null">status = #{status},</if>
-            <if test="member != null">member = #{member},</if>
+            <if test="operation != null">`status` = #{operation},</if>
             <if test="remark != null">remark = #{remark},</if>
         </trim>
         where record_id = #{recordId}

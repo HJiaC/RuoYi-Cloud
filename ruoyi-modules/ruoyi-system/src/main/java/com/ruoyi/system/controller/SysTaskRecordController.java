@@ -3,6 +3,8 @@ package com.ruoyi.system.controller;
 import java.util.List;
 import java.io.IOException;
 import javax.servlet.http.HttpServletResponse;
+
+import com.ruoyi.system.domain.dto.SysTaskRecordOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -88,9 +90,9 @@ public class SysTaskRecordController extends BaseController
     @RequiresPermissions("system:record:edit")
     @Log(title = "任务记录", businessType = BusinessType.UPDATE)
     @PutMapping
-    public AjaxResult edit(@RequestBody SysTaskRecord sysTaskRecord)
+    public AjaxResult edit(@RequestBody SysTaskRecordOperation sysTaskRecordOperation)
     {
-        return toAjax(sysTaskRecordService.updateSysTaskRecord(sysTaskRecord));
+        return toAjax(sysTaskRecordService.updateSysTaskRecord(sysTaskRecordOperation));
     }
 
     /**
