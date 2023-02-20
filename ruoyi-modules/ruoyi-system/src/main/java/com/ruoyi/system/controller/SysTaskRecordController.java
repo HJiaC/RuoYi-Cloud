@@ -39,6 +39,16 @@ public class SysTaskRecordController extends BaseController
     private ISysTaskRecordService sysTaskRecordService;
 
     /**
+     * 考勤中心统计信息
+     */
+    @GetMapping("/dataStatistic")
+    public AjaxResult getTaskRecordStatistic(){
+        return success(sysTaskRecordService.getTaskRecordStatistic());
+    }
+
+
+
+    /**
      * 查询任务记录列表
      */
     @RequiresPermissions("system:record:list")

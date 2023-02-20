@@ -99,7 +99,7 @@
 
     <el-table v-loading="loading" :data="taskList" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="任务号" align="center" prop="taskId" />
+      <!-- <el-table-column label="任务号" align="center" prop="taskId" /> -->
       <el-table-column label="任务名称" align="center" prop="taskName" />
       <el-table-column label="所属组织" align="center" prop="organization" />
       <el-table-column label="创建人员" align="center" prop="createBy" />

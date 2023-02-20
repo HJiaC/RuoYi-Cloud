@@ -3,6 +3,7 @@ package com.ruoyi.system.service.impl;
 import java.util.List;
 
 import com.ruoyi.system.domain.dto.SysTaskRecordOperation;
+import com.ruoyi.system.domain.vo.TaskRecordStatisticVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ruoyi.system.mapper.SysTaskRecordMapper;
@@ -92,5 +93,20 @@ public class SysTaskRecordServiceImpl implements ISysTaskRecordService
     public int deleteSysTaskRecordByRecordId(Long recordId)
     {
         return sysTaskRecordMapper.deleteSysTaskRecordByRecordId(recordId);
+    }
+
+    /**
+     * 获取考勤中心统计信息
+     *
+     * @return list
+     */
+    @Override
+    public TaskRecordStatisticVo getTaskRecordStatistic() {
+        TaskRecordStatisticVo statisticVo = new TaskRecordStatisticVo();
+        statisticVo.setMemberNum(sysTaskRecordMapper.getMemberNum());
+        statisticVo.setExceptionNum(sysTaskRecordMapper.getExceptionNum());
+        statisticVo.setRecordNum(sysTaskRecordMapper.getTaskRecordNum());
+        statisticVo.setAttendanceRate(90.3D);
+        return statisticVo;
     }
 }

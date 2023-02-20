@@ -7,20 +7,21 @@
     <resultMap type="SysTaskRecord" id="SysTaskRecordResult">
         <result property="recordId"    column="record_id"    />
         <result property="taskId"    column="task_id"    />
+        <result property="taskName"    column="task_name"    />
         <result property="status"    column="status"    />
         <result property="member"    column="member"    />
         <result property="remark"    column="remark"    />
     </resultMap>
 
     <sql id="selectSysTaskRecordVo">
-        select record_id, task_id, status, member, remark from sys_task_record
+        select record_id, r.task_id,t.task_name, r.status, member, remark from sys_task t join sys_task_record r on(t.task_id = r.task_id)
     </sql>
 
     <select id="selectSysTaskRecordList" parameterType="SysTaskRecord" resultMap="SysTaskRecordResult">
         <include refid="selectSysTaskRecordVo"/>
         <where>
             <if test="taskId != null and taskId != 0 "> and task_id = #{taskId}</if>
-            <if test="recordId != null and recordId != 0 "> and task_id = #{taskId}</if>
+            <if test="recordId != null and recordId != 0 "> and recordId = #{recordId}</if>
             <if test="status != null and status != 0 "> and status = #{status}</if>
             <if test="member != null  and member != ''"> and member = #{member}</if>
         </where>
@@ -29,6 +30,26 @@
     <select id="selectSysTaskRecordByRecordId" parameterType="Long" resultMap="SysTaskRecordResult">
         <include refid="selectSysTaskRecordVo"/>
         where record_id = #{recordId}
+    </select>
+    <select id="getTaskRecordNum" resultType="java.lang.Integer">
+        select
+            count(1)
+        from
+            sys_task t join sys_task_record r on (t.task_id = r.task_id);
+    </select>
+    <select id="getMemberNum" resultType="java.lang.Integer">
+        select
+            count(1)
+        from
+            sys_user;
+    </select>
+    <select id="getExceptionNum" resultType="java.lang.Integer">
+        select
+            count(1)
+        from
+            sys_task t join sys_task_record r on (t.task_id = r.task_id)
+        where
+            r.`status` = 3;
     </select>
 
     <insert id="insertSysTaskRecord" parameterType="SysTaskRecord" useGeneratedKeys="true" keyProperty="recordId">

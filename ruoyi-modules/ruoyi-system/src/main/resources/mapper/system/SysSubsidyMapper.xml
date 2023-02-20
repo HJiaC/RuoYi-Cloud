@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.SysSubsidyMapper">
+
+    <resultMap type="SysSubsidy" id="SysSubsidyResult">
+        <result property="subsidyId"    column="subsidy_id"    />
+        <result property="recordId"    column="record_id"    />
+        <result property="taskId"    column="task_id"    />
+        <result property="money"    column="money"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectSysSubsidyVo">
+        select subsidy_id, record_id, task_id, money, create_by, create_time, remark from sys_subsidy
+    </sql>
+
+    <select id="selectSysSubsidyList" parameterType="SysSubsidy" resultMap="SysSubsidyResult">
+        <include refid="selectSysSubsidyVo"/>
+        <where>
+            <if test="recordId != null "> and record_id = #{recordId}</if>
+            <if test="taskId != null "> and task_id = #{taskId}</if>
+            <if test="money != null "> and money = #{money}</if>
+        </where>
+    </select>
+
+    <select id="selectSysSubsidyBySubsidyId" parameterType="Long" resultMap="SysSubsidyResult">
+        <include refid="selectSysSubsidyVo"/>
+        where subsidy_id = #{subsidyId}
+    </select>
+
+    <insert id="insertSysSubsidy" parameterType="SysSubsidy">
+        insert into sys_subsidy
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="subsidyId != null">subsidy_id,</if>
+            <if test="recordId != null">record_id,</if>
+            <if test="taskId != null">task_id,</if>
+            <if test="money != null">money,</if>
+            <if test="createBy != null and createBy != ''">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="remark != null and remark != ''">remark,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="subsidyId != null">#{subsidyId},</if>
+            <if test="recordId != null">#{recordId},</if>
+            <if test="taskId != null">#{taskId},</if>
+            <if test="money != null">#{money},</if>
+            <if test="createBy != null and createBy != ''">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="remark != null and remark != ''">#{remark},</if>
+        </trim>
+    </insert>
+
+    <update id="updateSysSubsidy" parameterType="SysSubsidy">
+        update sys_subsidy
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="recordId != null">record_id = #{recordId},</if>
+            <if test="taskId != null">task_id = #{taskId},</if>
+            <if test="money != null">money = #{money},</if>
+            <if test="createBy != null and createBy != ''">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="remark != null and remark != ''">remark = #{remark},</if>
+        </trim>
+        where subsidy_id = #{subsidyId}
+    </update>
+
+    <delete id="deleteSysSubsidyBySubsidyId" parameterType="Long">
+        delete from sys_subsidy where subsidy_id = #{subsidyId}
+    </delete>
+
+    <delete id="deleteSysSubsidyBySubsidyIds" parameterType="String">
+        delete from sys_subsidy where subsidy_id in
+        <foreach item="subsidyId" collection="array" open="(" separator="," close=")">
+            #{subsidyId}
+        </foreach>
+    </delete>
+</mapper>

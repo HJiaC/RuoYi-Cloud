@@ -25,16 +25,16 @@
             <el-input v-model="queryParams.phonenumber" placeholder="请输入手机号码" clearable style="width: 240px"
               @keyup.enter.native="handleQuery" />
           </el-form-item>
-          <el-form-item label="状态" prop="status">
+          <!-- <el-form-item label="状态" prop="status">
             <el-select v-model="queryParams.status" placeholder="用户状态" clearable style="width: 240px">
               <el-option v-for="dict in dict.type.sys_normal_disable" :key="dict.value" :label="dict.label"
                 :value="dict.value" />
             </el-select>
-          </el-form-item>
-          <el-form-item label="创建时间">
+          </el-form-item> -->
+          <!-- <el-form-item label="创建时间">
             <el-date-picker v-model="dateRange" style="width: 240px" value-format="yyyy-MM-dd" type="daterange"
               range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
-          </el-form-item>
+          </el-form-item> -->
           <el-form-item>
             <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
             <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">重置</el-button>
@@ -44,12 +44,15 @@
         <!-- 用户操作按钮，在补贴发放功能中禁用 -->
         <el-row :gutter="10" class="mb8">
           <el-col :span="1.5">
-            <el-button type="success" plain icon="el-icon-money" size="mini" :disabled="multiple" @click="handleUpdate"
+            <!-- <el-button type="success" plain icon="el-icon-money" size="mini" :disabled="multiple" @click="handleUpdate"
               v-hasPermi="['system:user:edit']">批量发放
+            </el-button> -->
+            <!-- <el-button type="success" plain icon="el-icon-check" size="mini" :disabled="multiple" @click="handleFreeze"
+            v-hasPermi="['system:user:add']">批量解冻
             </el-button>
             <el-button type="danger" plain icon="el-icon-close" size="mini" :disabled="multiple" @click="handleFreeze"
               v-hasPermi="['system:user:add']">批量冻结
-            </el-button>
+            </el-button> -->
           </el-col>
 
           <!-- <right-toolbar :showSearch.sync="showSearch" @queryTable="getList" :columns="columns"></right-toolbar> -->
@@ -75,8 +78,11 @@
             <template slot-scope="scope" v-if="scope.row.userId !== 1">
               <el-button size="mini" type="text" icon="el-icon-money" @click="handleUpdate(scope.row)"
                 v-hasPermi="['system:user:edit']">发放补贴</el-button>
-              <el-button size="mini" type="text" icon="el-icon-close" @click="handleFreeze (scope.row)"
+              <el-button size="mini" type="text" icon="el-icon-circle-check" @click="handleUnfreeze (scope.row)"
+                v-hasPermi="['system:user:remove']">解冻余额</el-button>
+              <el-button size="mini" type="text" icon="el-icon-circle-close" @click="handleFreeze (scope.row)"
                 v-hasPermi="['system:user:remove']">冻结余额</el-button>
+              
             </template>
           </el-table-column>
         </el-table>
@@ -89,15 +95,22 @@
     <!-- 发放补贴操作对话框 -->
     <el-dialog :title="title" :visible.sync="open" width="600px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
-        <el-row>
-          <el-col :span="12">
+        <!-- <el-row>
+          <el-col >
             <el-form-item label="补贴金额" prop="nickName">
               <el-input v-model="form.nickName" placeholder="请输入金额" maxlength="30" />
             </el-form-item>
           </el-col>
+        </el-row> -->
+        <el-row>
           <el-col :span="12">
-            <el-form-item label="补贴说明" prop="deptId">
-              <el-input v-model="form.deptId" placeholder="请选择说明" />
+            <el-form-item label="补贴金额" >
+              <el-input v-model="form.money" placeholder="请输入金额"/>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="补贴说明">
+              <el-input v-model="form.remark" placeholder="请选择说明" />
             </el-form-item>
           </el-col>
         </el-row>
@@ -116,10 +129,10 @@
   import { getToken } from "@/utils/auth";
   import Treeselect from "@riophae/vue-treeselect";
   import "@riophae/vue-treeselect/dist/vue-treeselect.css";
-
-  export default {
-    name: "User",
-    dicts: ['sys_normal_disable', 'sys_user_sex'],
+  import { listSubsidy, getSubsidy, delSubsidy, addSubsidy, updateSubsidy } from "/src/api/system/subsidy";
+  import { updateWallet } from '/src/api/system/wallet';
+    export default {
+    name: "Subsidy",
     components: { Treeselect },
     data() {
       return {
@@ -147,12 +160,6 @@
         deptName: undefined,
         // 默认密码
         initPassword: undefined,
-        // 日期范围
-        dateRange: [],
-        // 岗位选项
-        postOptions: [],
-        // 角色选项
-        roleOptions: [],
         // 表单参数
         form: {},
         defaultProps: {
@@ -319,57 +326,77 @@
       handleUpdate(row) {
         this.reset();
         const userId = row.userId || this.ids;
-        getUser(userId).then(response => {
-          this.form = response.data;
-          this.postOptions = response.posts;
-          this.roleOptions = response.roles;
-          this.$set(this.form, "postIds", response.postIds);
-          this.$set(this.form, "roleIds", response.roleIds);
-          this.open = true;
-          this.title = "修改用户";
-          this.form.password = "";
-        });
+        this.open = true;
+        this.title = "发放补贴";
+        
       },
 
-      /** 修改按钮操作 */
+      /** 冻结余额操作 */
       handleFreeze(row) {
-        this.$confirm('此操作将冻结志愿者的账户余额, 是否继续?', '提示', {
+        const userIds = row.userId || this.ids;
+        const walletInfo = {
+          userId: userIds,
+          status: 1 //1表示账户不可用
+        }
+        this.$confirm('此操作将冻结账户余额, 是否继续?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
-        }).then(() => {
-          this.$message({
+        }).then(response => {
+          updateWallet(walletInfo).then(response =>{
+            this.$message({
             type: 'success',
-            message: '冻结成功!'
+            message: '用户钱包已冻结！'
           });
-        }).catch(() => {
+          })
+        })
+        .catch(() => {
           this.$message({
             type: 'info',
             message: '已取消余额冻结操作！'
           });
         });
       },
+        /** 解冻余额操作 */
+      handleUnfreeze(row) {
+        const userIds = row.userId || this.ids;
+        const walletInfo = {
+          userId: userIds,
+          status: 0 //0表示账户可用
+        }
+        this.$confirm('此操作将解冻账户余额, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then( response => {
+          updateWallet(walletInfo).then(response => {
+            this.$message({
+            type: 'success',
+            message: '用户钱包已解冻！'
+            });
+          })
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消余额解冻操作！'
+          });
+        });
+      },
 
       /** 提交按钮 */
       submitForm: function () {
-        this.$refs["form"].validate(valid => {
-          if (valid) {
-            if (this.form.userId != undefined) {
-              updateUser(this.form).then(response => {
-                this.$modal.msgSuccess("修改成功");
+            if (this.form.money != 0) {
+              addSubsidy(this.form).then(response => {
                 this.open = false;
-                this.getList();
-              });
-            } else {
-              addUser(this.form).then(response => {
-                this.$modal.msgSuccess("新增成功");
-                this.open = false;
-                this.getList();
-              });
+                this.$message({
+                  type: 'success',
+                  message: '发放补贴成功！'
+                });
+                
+              })
             }
-          }
-        });
       }
     }
   };
 </script>
+

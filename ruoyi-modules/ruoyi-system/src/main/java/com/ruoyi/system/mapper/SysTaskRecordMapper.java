@@ -3,6 +3,7 @@ package com.ruoyi.system.mapper;
 import java.util.List;
 import com.ruoyi.system.domain.SysTaskRecord;
 import com.ruoyi.system.domain.dto.SysTaskRecordOperation;
+import com.ruoyi.system.domain.vo.TaskRecordStatisticVo;
 import org.apache.ibatis.annotations.Param;
 
 /**
@@ -61,4 +62,25 @@ public interface SysTaskRecordMapper
      * @return 结果
      */
     public int deleteSysTaskRecordByRecordIds(Long[] recordIds);
+
+    /**
+     * 获取组织人数统计数据
+     * @return int
+     */
+    public int getTaskRecordNum();
+
+    /**
+     * 获取打卡记录条数
+     * @return int
+     */
+    public int getMemberNum();
+
+    /**
+     * 获取异常情况记录条数
+     * @return int
+     */
+    public int getExceptionNum();
+
+
+
 }

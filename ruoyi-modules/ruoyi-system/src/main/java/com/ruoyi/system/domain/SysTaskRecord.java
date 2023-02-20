@@ -6,9 +6,20 @@ public class SysTaskRecord extends BaseEntity {
     private int recordId;
     private int taskId;
     private int status;
+
+    private String taskName;
     private String member;
 
     private String remark;
+
+
+    public String getTaskName() {
+        return taskName;
+    }
+
+    public void setTaskName(String taskName) {
+        this.taskName = taskName;
+    }
 
     public int getRecordId() {
         return recordId;

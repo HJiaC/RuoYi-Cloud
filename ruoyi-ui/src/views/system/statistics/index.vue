@@ -7,7 +7,7 @@
                     <h3>组织数量</h3>
                     <div>
                         <i class="el-icon-s-shop" style="color: purple"></i>
-                        <span>2424132</span>
+                        <span>{{statistic.organizationNum}}</span>
                     </div>
                 </el-card>
             </el-col>
@@ -16,7 +16,7 @@
                     <h3>志愿者数量</h3>
                     <div>
                         <i class="el-icon-user-solid" style="color: green"></i>
-                        <span>12763</span>
+                        <span>{{statistic.volunteerNum}}</span>
                     </div>
                 </el-card>
             </el-col>
@@ -25,7 +25,7 @@
                     <h3>补贴发放金额</h3>
                     <div>
                         <i class="el-icon-s-flag" style="color: red"></i>
-                        <span>28%</span>
+                        <span>数据未填充</span>
                     </div>
                 </el-card>
             </el-col>
@@ -34,7 +34,7 @@
                     <h3>当前在线人数</h3>
                     <div>
                         <i class="el-icon-star-on" style="color: blue"></i>
-                        <span>358</span>
+                        <span>{{statistic.onlineNum}}</span>
                     </div>
                 </el-card>
             </el-col>
@@ -49,6 +49,8 @@
 </template>
 
 <script>
+    import {list} from '/src/api/monitor/online.js';
+    import {getTaskRecordStatistic} from '/src/api/system/taskRecord.js';
     import OrgannizationChange from './charts/organizationChange';
     import VolunteerChange from './charts/volunteerChange';
     import MoneyChange from './charts/moneyChange';
@@ -58,13 +60,34 @@
         components:{OrgannizationChange,VolunteerChange,MoneyChange,OnlineChange},
         data() {
             return {
-                
+                //统计信息
+                statistic: {
+                    organizationNum: 0,
+                    volunteerNum: 0,
+                    moneyAmount: 0,
+                    onlineNum: 0,
+                },
+
             }
         },
         computed:{
 
         },
+        created() {
+            this.getStatisticInfo();
+        },
         methods: {
+            getStatisticInfo() {
+                //请求在线人数数据
+                list().then(response => {
+                    this.statistic.onlineNum = response.total;
+                })
+                //请求组织数量和志愿者数量数据
+                getTaskRecordStatistic().then( response => {
+                    this.statistic.organizationNum = response.data.memberNum;
+                    this.statistic.volunteerNum = response.data.memberNum;
+                })
+            }
             
         },
     }

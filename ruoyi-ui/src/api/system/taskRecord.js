@@ -1,5 +1,13 @@
 import request from '@/utils/request'
 
+//获取统计数据
+export function getTaskRecordStatistic() {
+  return request({
+    url: '/system/taskRecord/dataStatistic',
+    method: 'get'
+  })
+}
+
 // 查询任务记录列表
 export function listRecord(query) {
   return request({

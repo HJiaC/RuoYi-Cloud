@@ -3,6 +3,7 @@ package com.ruoyi.system.service;
 import java.util.List;
 import com.ruoyi.system.domain.SysTaskRecord;
 import com.ruoyi.system.domain.dto.SysTaskRecordOperation;
+import com.ruoyi.system.domain.vo.TaskRecordStatisticVo;
 
 /**
  * @filename: ISysTaskRecordService
@@ -60,4 +61,11 @@ public interface ISysTaskRecordService
      * @return 结果
      */
     public int deleteSysTaskRecordByRecordId(Long recordId);
+
+    /**
+     * 获取考勤中心统计信息
+     *
+     * @return list
+     */
+    public TaskRecordStatisticVo getTaskRecordStatistic();
 }

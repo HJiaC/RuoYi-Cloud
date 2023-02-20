@@ -7,7 +7,7 @@
           <h3>组织人数</h3>
           <div>
             <i class="el-icon-s-shop" style="color: purple"></i>
-            <span>1</span>
+            <span >{{statistic.memberNum}}</span>
           </div>
         </el-card>
       </el-col>
@@ -16,7 +16,7 @@
           <h3>打卡记录</h3>
           <div>
             <i class="el-icon-user-solid" style="color: green"></i>
-            <span>2</span>
+            <span>{{statistic.recordNum}}</span>
           </div>
         </el-card>
       </el-col>
@@ -25,7 +25,7 @@
           <h3>出勤率</h3>
           <div>
             <i class="el-icon-s-flag" style="color: red"></i>
-            <span>90%</span>
+            <span>{{statistic.attendanceRate}}%</span>
           </div>
         </el-card>
       </el-col>
@@ -34,7 +34,7 @@
           <h3>异常情况</h3>
           <div>
             <i class="el-icon-star-on" style="color: blue"></i>
-            <span>4</span>
+            <span>{{statistic.exceptionNum}}</span>
           </div>
         </el-card>
       </el-col>
@@ -62,7 +62,7 @@
     <el-table v-loading="loading" :data="recordList" @selection-change="handleSelectionChange">
       <!-- <el-table-column type="selection" width="55" align="center" /> -->
       <el-table-column label="记录ID" align="center" prop="recordId" />
-      <el-table-column label="任务名称" align="center" prop="taskId" />
+      <el-table-column label="任务名称" align="center" prop="taskName" />
       <el-table-column label="记录状态" align="center" prop="status" />
       <el-table-column label="所属人员" align="center" prop="member" />
       <el-table-column label="备注" align="center" prop="remark" />
@@ -133,7 +133,7 @@
 </template>
 
 <script>
-  import { listRecord, getRecord, delRecord, addRecord, updateRecord } from "@/api/system/record";
+  import { listRecord, getRecord, delRecord, addRecord, updateRecord, getTaskRecordStatistic } from "@/api/system/taskRecord";
 
   export default {
     name: "Record",
@@ -178,13 +178,22 @@
           status: [
             { required: true, message: "记录的情况0：任务尚未开始1：任务被终止2：任务已完成3：任务进行中4：任务存在异常不能为空", trigger: "change" }
           ],
-        }
+        },
+        //统计数据
+        statistic:{}
       };
     },
     created() {
       this.getList();
+      this.getTaskRecordStatistic();
     },
     methods: {
+      /**查询统计数据*/
+      getTaskRecordStatistic() {
+        getTaskRecordStatistic().then(response => {
+           this.statistic = response.data;
+        })
+      },
       /** 查询任务记录列表 */
       getList() {
         this.loading = true;
@@ -274,6 +283,7 @@
                 this.$modal.msgSuccess("修改成功");
                 this.open = false;
                 this.getList();
+                this.getTaskRecordStatistic();
               });
             }
              else {
@@ -281,6 +291,7 @@
                 this.$modal.msgSuccess("删除成功");
                 this.open = false;
                 this.getList();
+                this.getTaskRecordStatistic();
               });
             }
           }
