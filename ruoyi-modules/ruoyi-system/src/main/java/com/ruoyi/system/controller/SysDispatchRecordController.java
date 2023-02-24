@@ -15,36 +15,36 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ruoyi.common.log.annotation.Log;
 import com.ruoyi.common.log.enums.BusinessType;
 import com.ruoyi.common.security.annotation.RequiresPermissions;
-import com.ruoyi.system.domain.SysScheduleRecord;
-import com.ruoyi.system.service.ISysScheduleRecordService;
+import com.ruoyi.system.domain.SysDispatchRecord;
+import com.ruoyi.system.service.ISysDispatchRecordService;
 import com.ruoyi.common.core.web.controller.BaseController;
 import com.ruoyi.common.core.web.domain.AjaxResult;
 import com.ruoyi.common.core.utils.poi.ExcelUtil;
 import com.ruoyi.common.core.web.page.TableDataInfo;
 
 /**
- * @filename: SysScheduleRecordController
+ * @filename: SysDispatchRecordController
  * @author: HXJ
- * @date: 2023/2/16 3:56 PM
+ * @date: 2023/2/23 1:58 PM
  * @version: V1.0
  * @description: 人员调度记录Controller
  */
 @RestController
-@RequestMapping("/scheduleRecord")
-public class SysScheduleRecordController extends BaseController
+@RequestMapping("/dispatchRecord")
+public class SysDispatchRecordController extends BaseController
 {
     @Autowired
-    private ISysScheduleRecordService sysScheduleRecordService;
+    private ISysDispatchRecordService sysDispatchRecordService;
 
     /**
      * 查询人员调度记录列表
      */
     @RequiresPermissions("system:record:list")
     @GetMapping("/list")
-    public TableDataInfo list(SysScheduleRecord sysScheduleRecord)
+    public TableDataInfo list(SysDispatchRecord sysDispatchRecord)
     {
         startPage();
-        List<SysScheduleRecord> list = sysScheduleRecordService.selectSysScheduleRecordList(sysScheduleRecord);
+        List<SysDispatchRecord> list = sysDispatchRecordService.selectSysDispatchRecordList(sysDispatchRecord);
         return getDataTable(list);
     }
 
@@ -54,10 +54,10 @@ public class SysScheduleRecordController extends BaseController
     @RequiresPermissions("system:record:export")
     @Log(title = "人员调度记录", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
-    public void export(HttpServletResponse response, SysScheduleRecord sysScheduleRecord)
+    public void export(HttpServletResponse response, SysDispatchRecord sysDispatchRecord)
     {
-        List<SysScheduleRecord> list = sysScheduleRecordService.selectSysScheduleRecordList(sysScheduleRecord);
-        ExcelUtil<SysScheduleRecord> util = new ExcelUtil<SysScheduleRecord>(SysScheduleRecord.class);
+        List<SysDispatchRecord> list = sysDispatchRecordService.selectSysDispatchRecordList(sysDispatchRecord);
+        ExcelUtil<SysDispatchRecord> util = new ExcelUtil<SysDispatchRecord>(SysDispatchRecord.class);
         util.exportExcel(response, list, "人员调度记录数据");
     }
 
@@ -65,10 +65,10 @@ public class SysScheduleRecordController extends BaseController
      * 获取人员调度记录详细信息
      */
     @RequiresPermissions("system:record:query")
-    @GetMapping(value = "/{scheduleId}")
-    public AjaxResult getInfo(@PathVariable("scheduleId") Long scheduleId)
+    @GetMapping(value = "/{dispatchId}")
+    public AjaxResult getInfo(@PathVariable("dispatchId") Long dispatchId)
     {
-        return success(sysScheduleRecordService.selectSysScheduleRecordByScheduleId(scheduleId));
+        return success(sysDispatchRecordService.selectSysDispatchRecordByDispatchId(dispatchId));
     }
 
     /**
@@ -77,9 +77,9 @@ public class SysScheduleRecordController extends BaseController
     @RequiresPermissions("system:record:add")
     @Log(title = "人员调度记录", businessType = BusinessType.INSERT)
     @PostMapping
-    public AjaxResult add(@RequestBody SysScheduleRecord sysScheduleRecord)
+    public AjaxResult add(@RequestBody SysDispatchRecord sysDispatchRecord)
     {
-        return toAjax(sysScheduleRecordService.insertSysScheduleRecord(sysScheduleRecord));
+        return toAjax(sysDispatchRecordService.insertSysDispatchRecord(sysDispatchRecord));
     }
 
     /**
@@ -88,9 +88,9 @@ public class SysScheduleRecordController extends BaseController
     @RequiresPermissions("system:record:edit")
     @Log(title = "人员调度记录", businessType = BusinessType.UPDATE)
     @PutMapping
-    public AjaxResult edit(@RequestBody SysScheduleRecord sysScheduleRecord)
+    public AjaxResult edit(@RequestBody SysDispatchRecord sysDispatchRecord)
     {
-        return toAjax(sysScheduleRecordService.updateSysScheduleRecord(sysScheduleRecord));
+        return toAjax(sysDispatchRecordService.updateSysDispatchRecord(sysDispatchRecord));
     }
 
     /**
@@ -98,9 +98,9 @@ public class SysScheduleRecordController extends BaseController
      */
     @RequiresPermissions("system:record:remove")
     @Log(title = "人员调度记录", businessType = BusinessType.DELETE)
-    @DeleteMapping("/{scheduleIds}")
-    public AjaxResult remove(@PathVariable Long[] scheduleIds)
+    @DeleteMapping("/{dispatchIds}")
+    public AjaxResult remove(@PathVariable Long[] dispatchIds)
     {
-        return toAjax(sysScheduleRecordService.deleteSysScheduleRecordByScheduleIds(scheduleIds));
+        return toAjax(sysDispatchRecordService.deleteSysDispatchRecordByDispatchIds(dispatchIds));
     }
 }

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.SysDispatchRecordMapper">
+
+    <resultMap type="SysDispatchRecord" id="SysDispatchRecordResult">
+        <result property="dispatchId"    column="dispatch_id"    />
+        <result property="taskId"    column="task_id"    />
+        <result property="member"    column="member"    />
+        <result property="reason"    column="reason"    />
+        <result property="from"    column="from"    />
+        <result property="to"    column="to"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectSysDispatchRecordVo">
+        select dispatch_id, task_id, member, reason, `from`, `to`, create_by, create_time, update_time, remark from sys_dispatch_record
+    </sql>
+
+    <select id="selectSysDispatchRecordList" parameterType="SysDispatchRecord" resultMap="SysDispatchRecordResult">
+        <include refid="selectSysDispatchRecordVo"/>
+        <where>
+            <if test="taskId != null "> and task_id = #{taskId}</if>
+            <if test="member != null "> and `member` = #{member}</if>
+            <if test="reason != null  and reason != ''"> and reason = #{reason}</if>
+            <if test="from != null  and from != ''"> and `from` = #{from}</if>
+            <if test="to != null  and to != ''"> and `to` = #{to}</if>
+        </where>
+    </select>
+
+    <select id="selectSysDispatchRecordByDispatchId" parameterType="Long" resultMap="SysDispatchRecordResult">
+        <include refid="selectSysDispatchRecordVo"/>
+        where dispatch_id = #{dispatchId}
+    </select>
+
+    <insert id="insertSysDispatchRecord" parameterType="SysDispatchRecord" useGeneratedKeys="true" keyProperty="dispatchId">
+        insert into sys_dispatch_record
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="taskId != null">task_id,</if>
+            <if test="member != null">`member`,</if>
+            <if test="reason != null">reason,</if>
+            <if test="from != null and from != ''">from,</if>
+            <if test="to != null and to != ''">`to`,</if>
+            <if test="createBy != null and createBy != ''">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="taskId != null">#{taskId},</if>
+            <if test="member != null">#{member},</if>
+            <if test="reason != null">#{reason},</if>
+            <if test="from != null and from != ''">#{from},</if>
+            <if test="to != null and to != ''">#{to},</if>
+            <if test="createBy != null and createBy != ''">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+        </trim>
+    </insert>
+
+    <update id="updateSysDispatchRecord" parameterType="SysDispatchRecord">
+        update sys_dispatch_record
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="taskId != null">task_id = #{taskId},</if>
+            <if test="memberId != null">member_id = #{memberId},</if>
+            <if test="reason != null">reason = #{reason},</if>
+            <if test="from != null and from != ''">from = #{from},</if>
+            <if test="to != null and to != ''">to = #{to},</if>
+            <if test="createBy != null and createBy != ''">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where dispatch_id = #{dispatchId}
+    </update>
+
+    <delete id="deleteSysDispatchRecordByDispatchId" parameterType="Long">
+        delete from sys_dispatch_record where dispatch_id = #{dispatchId}
+    </delete>
+
+    <delete id="deleteSysDispatchRecordByDispatchIds" parameterType="String">
+        delete from sys_dispatch_record where dispatch_id in
+        <foreach item="dispatchId" collection="array" open="(" separator="," close=")">
+            #{dispatchId}
+        </foreach>
+    </delete>
+</mapper>
