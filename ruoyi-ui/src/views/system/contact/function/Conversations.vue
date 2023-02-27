@@ -73,7 +73,7 @@
 
 <script>
   import restApi from "/src/api/restapi.js";
-  import {formatDate} from '/src/utils/contact/utils.js'
+  import {formatDate} from '/src/com.can.utils/contact/com.can.utils.js'
 
   export default {
     name: 'Conversations',

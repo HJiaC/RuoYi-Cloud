@@ -224,6 +224,8 @@
         <module>ruoyi-modules</module>
         <module>ruoyi-api</module>
         <module>ruoyi-common</module>
+        <module>ruoyi-socket</module>
+
     </modules>
     <packaging>pom</packaging>
 

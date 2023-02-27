@@ -19,7 +19,7 @@
     >
       <i class="el-icon-plus"></i>
     </el-upload>
-    
+
     <!-- 上传提示 -->
     <div class="el-upload__tip" slot="tip" v-if="showTip">
       请上传
@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import { getToken } from "@/utils/auth";
+import { getToken } from "@/com.can.utils/auth";
 
 export default {
   props: {
@@ -85,7 +85,7 @@ export default {
   },
   watch: {
     value: {
-      handler(val) {
+      com.can.handler(val) {
         if (val) {
           // 首先将值转为数组
           const list = Array.isArray(val) ? val : this.value.split(',');

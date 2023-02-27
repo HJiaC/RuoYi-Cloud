@@ -40,7 +40,7 @@
 </template>
 
 <script>
-import { getToken } from "@/utils/auth";
+import { getToken } from "@/com.can.utils/auth";
 
 export default {
   name: "FileUpload",
@@ -81,7 +81,7 @@ export default {
   },
   watch: {
     value: {
-      handler(val) {
+      com.can.handler(val) {
         if (val) {
           let temp = 1;
           // 首先将值转为数组

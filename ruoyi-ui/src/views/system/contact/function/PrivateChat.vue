@@ -182,9 +182,9 @@
 </template>
 
 <script>
-  import {formatDate} from '/src/utils/contact/utils.js'
+  import {formatDate} from '/src/com.can.utils/contact/com.can.utils.js'
   import restApi from "/src/api/restapi.js";
-  import EmojiDecoder from '/src//utils/contact/EmojiDecoder.js';
+  import EmojiDecoder from '/src//com.can.utils/contact/EmojiDecoder.js';
   import GoeasyVideoPlayer from "/src//components/Contact/GoEasyVideoPlayer";
 
   const IMAGE_MAX_WIDTH = 200;

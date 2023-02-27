@@ -1,4 +1,4 @@
-//package com.ruoyi.job.config;
+//package com.ruoyi.job.com.can.config;
 //
 //import java.util.Properties;
 //import javax.sql.DataSource;

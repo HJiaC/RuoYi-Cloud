@@ -8,7 +8,7 @@
 
 <script>
 //导入高德地图组件
-import MapContainer from '@/views/tool/map/MapContainer'
+import MapContainer from '@/views/tool/map/MapContainer';
 export default {
   name: "Map",
   components:{MapContainer},
@@ -17,6 +17,9 @@ export default {
       // 版本号
       version: "3.6.2",
     };
+  },
+  onload(){
+
   },
   methods: {
     goTarget(href) {

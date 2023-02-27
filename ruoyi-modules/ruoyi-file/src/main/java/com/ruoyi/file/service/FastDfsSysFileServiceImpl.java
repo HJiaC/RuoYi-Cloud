@@ -19,7 +19,7 @@ public class FastDfsSysFileServiceImpl implements ISysFileService
     /**
      * 域名或本机访问地址
      */
-    @Value("${fdfs.domain}")
+    @Value("${fdfs.com.can.domain}")
     public String domain;
 
     @Autowired

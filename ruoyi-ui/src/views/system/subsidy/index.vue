@@ -82,7 +82,7 @@
                 v-hasPermi="['system:user:remove']">解冻余额</el-button>
               <el-button size="mini" type="text" icon="el-icon-circle-close" @click="handleFreeze (scope.row)"
                 v-hasPermi="['system:user:remove']">冻结余额</el-button>
-              
+
             </template>
           </el-table-column>
         </el-table>
@@ -126,7 +126,7 @@
 
 <script>
   import { listUser, getUser, delUser, addUser, updateUser, resetUserPwd, changeUserStatus, deptTreeSelect } from "@/api/system/user";
-  import { getToken } from "@/utils/auth";
+  import { getToken } from "@/com.can.utils/auth";
   import Treeselect from "@riophae/vue-treeselect";
   import "@riophae/vue-treeselect/dist/vue-treeselect.css";
   import { listSubsidy, getSubsidy, delSubsidy, addSubsidy, updateSubsidy } from "/src/api/system/subsidy";
@@ -328,7 +328,7 @@
         const userId = row.userId || this.ids;
         this.open = true;
         this.title = "发放补贴";
-        
+
       },
 
       /** 冻结余额操作 */
@@ -392,7 +392,7 @@
                   type: 'success',
                   message: '发放补贴成功！'
                 });
-                
+
               })
             }
       }

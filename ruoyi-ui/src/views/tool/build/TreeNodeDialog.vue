@@ -71,7 +71,7 @@
   </div>
 </template>
 <script>
-import { isNumberStr } from '@/utils/index'
+import { isNumberStr } from '@/com.can.utils/index'
 
 export default {
   components: {},

@@ -1,4 +1,4 @@
-package ${packageName}.domain;
+package ${packageName}.com.can.domain;
 
 #foreach ($import in $subImportList)
 import ${import};
@@ -6,7 +6,7 @@ import ${import};
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import com.ruoyi.common.core.annotation.Excel;
-import com.ruoyi.common.core.web.domain.BaseEntity;
+import com.ruoyi.common.core.web.com.can.domain.BaseEntity;
 
 /**
  * ${subTable.functionName}对象 ${subTableName}

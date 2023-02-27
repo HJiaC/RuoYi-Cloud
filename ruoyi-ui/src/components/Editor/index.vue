@@ -22,7 +22,7 @@ import Quill from "quill";
 import "quill/dist/quill.core.css";
 import "quill/dist/quill.snow.css";
 import "quill/dist/quill.bubble.css";
-import { getToken } from "@/utils/auth";
+import { getToken } from "@/com.can.utils/auth";
 
 export default {
   name: "Editor",
@@ -104,7 +104,7 @@ export default {
   },
   watch: {
     value: {
-      handler(val) {
+      com.can.handler(val) {
         if (val !== this.currentValue) {
           this.currentValue = val === null ? "" : val;
           if (this.Quill) {

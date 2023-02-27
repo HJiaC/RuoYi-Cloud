@@ -24,7 +24,7 @@ public class LocalSysFileServiceImpl implements ISysFileService
     /**
      * 域名或本机访问地址
      */
-    @Value("${file.domain}")
+    @Value("${file.com.can.domain}")
     public String domain;
     
     /**

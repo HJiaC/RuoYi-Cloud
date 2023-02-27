@@ -61,7 +61,7 @@
 <script>
 import { getCodeImg } from "@/api/login";
 import Cookies from "js-cookie";
-import { encrypt, decrypt } from '@/utils/jsencrypt'
+import { encrypt, decrypt } from '@/com.can.utils/jsencrypt'
 
 export default {
   name: "Login",
@@ -94,7 +94,7 @@ export default {
   },
   watch: {
     $route: {
-      handler: function(route) {
+      com.can.handler: function(route) {
         this.redirect = route.query && route.query.redirect;
       },
       immediate: true
@@ -155,7 +155,7 @@ export default {
 <style rel="stylesheet/scss" lang="scss">
 .login {
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: center;
   height: 100%;
   background-image: url("../assets/images/login-background-new.jpg");
@@ -164,13 +164,15 @@ export default {
 .title {
   margin: 0px auto 30px auto;
   text-align: center;
-  color: #707070;
+  color: #fff;
 }
 
 .login-form {
   border-radius: 6px;
-  background: #ffffff;
+  /* background: #ffffff; */
+  /* border-left: 1px solid white; */
   width: 400px;
+  /* height: 100%; */
   padding: 25px 25px 5px 25px;
   .el-input {
     height: 38px;

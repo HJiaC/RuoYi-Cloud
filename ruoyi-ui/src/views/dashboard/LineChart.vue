@@ -39,7 +39,7 @@ export default {
   watch: {
     chartData: {
       deep: true,
-      handler(val) {
+      com.can.handler(val) {
         this.setOptions(val)
       }
     }
